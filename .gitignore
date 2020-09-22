@@ -1,0 +1,5 @@
+# python virtual envs
+/venv
+
+# OSX hidden files
+.DS_Store
