@@ -3,3 +3,6 @@
 
 # OSX hidden files
 .DS_Store
+
+# Jetbrains
+.idea
