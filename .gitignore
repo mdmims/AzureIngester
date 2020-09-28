@@ -6,3 +6,9 @@
 
 # Jetbrains
 .idea
+
+# python
+__pycache__
+
+# vscode
+.vscode

@@ -3,5 +3,5 @@
     "subscription_id": "54011b5f-eb47-4ee9-bfdf-7ae3c5b93f0b",
     "tenant_id": "b91e0217-7b39-43d4-bb5d-efa2363eebcd",
     "application_id": "c2048c6c-a764-4f0a-88f4-e1f3c938c23a",
-    "resource_group_name": "EngineeringPipeline"
+    "resource_group": "EngineeringPipeline"
 }

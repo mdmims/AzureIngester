@@ -4,4 +4,4 @@ exclude =
     __pychache__,
     venv
 max-complexity = 10
-max-line-length = 160
+max-line-length = 120

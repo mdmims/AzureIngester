@@ -1,3 +1,5 @@
+import requests
+import json
 import time
 
 
@@ -11,16 +13,18 @@ def fatal_code(response) -> bool:
     return 400 <= response.status_code < 500
 
 
-class AzureHelper:
+class AzureApp:
+    """
+    Use Azure AD credentials to auth to Azure services
+    """
     def __init__(self, tenant_id, application_id, subscription_id, resource_group, client_secret):
         self.tenant_id = tenant_id
         self.client_id = application_id
         self.subscription_id = subscription_id
         self.resource_group = resource_group
-        self.client_secret = client_secret
-        self._oauth_token = client_secret
+        self.client_secret = None
+        self._oauth_token = None
         self.grace_period = 300  # attempt to refresh azure oauth token after 300 seconds
-
 
     @property
     def oauth_token(self):
@@ -37,11 +41,16 @@ class AzureHelper:
                 "client_secret": self.client_secret,
                 "resource": azure_resource,
             }
+            response = {}
 
             try:
-                # TODO add aiohttp methods
+                response = requests.post(azure_auth_url, headers=headers, data=data).json()
+            except Exception as e:
+                raise e
+
+            if "error" in response:
                 pass
-            except:
-                pass
+            else:
+                self._oauth_token = response
+
         return self._oauth_token.get("access_token")
-            
