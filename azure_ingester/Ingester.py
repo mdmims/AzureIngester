@@ -15,4 +15,3 @@ if __name__ == "__main__":
                             config["subscription_id"],
                             config["resource_group"],
                             _client_secret)
-    print(azure_client)

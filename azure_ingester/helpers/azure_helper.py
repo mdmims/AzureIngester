@@ -22,7 +22,7 @@ class AzureApp:
         self.client_id = application_id
         self.subscription_id = subscription_id
         self.resource_group = resource_group
-        self.client_secret = None
+        self.client_secret = client_secret
         self._oauth_token = None
         self.grace_period = 300  # attempt to refresh azure oauth token after 300 seconds
 
@@ -41,15 +41,13 @@ class AzureApp:
                 "client_secret": self.client_secret,
                 "resource": azure_resource,
             }
-            response = {}
-
             try:
                 response = requests.post(azure_auth_url, headers=headers, data=data).json()
             except Exception as e:
                 raise e
 
             if "error" in response:
-                pass
+                raise ValueError(json.dumps(response))
             else:
                 self._oauth_token = response
 
