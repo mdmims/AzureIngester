@@ -15,8 +15,7 @@ def load_azure_config():
 
 def load_data_to_adls(storage_account_name, account_key):
     adl = AzureDataLake(storage_account_name, account_key, "root")
-    container = adl.file_system_client
-    directory = adl.create_directory("raw")
+    adl.create_directory("raw")
     dir_properties, dir_contents = adl.get_directory_properties("raw", include_paths=True)
 
 
@@ -27,7 +26,7 @@ class AzureConfig:
     subscription_id: str
     resource_group: str
     client_secret: str
- 
+
 
 if __name__ == "__main__":
     config = load_azure_config()

@@ -1,6 +1,3 @@
-import os
-import uuid
-import sys
 from azure.storage.filedatalake import DataLakeServiceClient
 from azure.core.exceptions import ResourceExistsError
 
