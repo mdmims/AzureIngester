@@ -1,5 +1,6 @@
 from azure.storage.filedatalake import DataLakeServiceClient
 from azure.core.exceptions import ResourceExistsError
+from typing import Dict, Tuple, Union
 
 
 class AzureDataLake:
@@ -38,17 +39,19 @@ class AzureDataLake:
         """
         return self.file_system_client.create_directory(directory_name)
 
-    def get_directory_properties(self, directory_name: str, include_paths: bool = False) -> tuple:
+    def get_directory_properties(self, directory_name: str, include_paths: bool = False
+                                 ) -> Tuple[Dict, Union[str, None]]:
         """
 
         :param bool include_paths: Return list of files/directories at specified directory
         """
         directory = self.file_system_client.get_directory_client(directory=directory_name)
         properties = directory.get_directory_properties()
+        _properties = {k: v for (k, v) in properties.__dict__.items()}
 
         if include_paths:
             paths = self.file_system_client.get_paths(path=directory_name)
             _paths = [p.name for p in paths]
         else:
             _paths = None
-        return properties, _paths
+        return _properties, _paths

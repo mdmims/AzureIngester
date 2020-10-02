@@ -33,8 +33,19 @@ if __name__ == "__main__":
     # TODO create cli parser, differnt auth (AD vs token)
     _client_secret = os.environ.get("azure_client_secret")
     _adls_account_key = os.environ.get("access_key")
-    cfg = AzureConfig(config["tenant_id"], config["application_id"], config["subscription_id"],
-                      config["resource_group"], _client_secret)
-    azure_client = AzureApp(cfg.tenant_id, cfg.client_id, cfg.subscription_id, cfg.resource_group, cfg.client_secret)
+    cfg = AzureConfig(
+        config["tenant_id"],
+        config["application_id"],
+        config["subscription_id"],
+        config["resource_group"],
+        _client_secret,
+    )
+    azure_client = AzureApp(
+        cfg.tenant_id,
+        cfg.client_id,
+        cfg.subscription_id,
+        cfg.resource_group,
+        cfg.client_secret,
+    )
     _credential = azure_client.oauth_token
     adl_client = load_data_to_adls("datapipelinegen2", _adls_account_key)
