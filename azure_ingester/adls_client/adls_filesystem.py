@@ -55,3 +55,8 @@ class AzureDataLake:
         else:
             _paths = None
         return _properties, _paths
+
+    def create_file(self, file_name: str, file_ext: str, content) -> None:
+        _file = self.file_system_client.create_file(f"{file_name}.{file_ext}")
+        _file.append_data(content, 0, len(content))
+        _file.flush_data(len(content))

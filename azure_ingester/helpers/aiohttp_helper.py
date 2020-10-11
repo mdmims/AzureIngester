@@ -59,7 +59,6 @@ async def send_requests(request_object: list):
     return await asyncio.gather(*tasks)
 
 
-async def aiohttp_handler(req: list):
-    breakpoint()
+def aiohttp_handler(req: list):
     response = asyncio.run(send_requests(req))
     return response
