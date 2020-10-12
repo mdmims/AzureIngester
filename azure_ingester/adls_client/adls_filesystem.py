@@ -39,10 +39,18 @@ class AzureDataLake:
         """
         return self.file_system_client.create_directory(directory_name)
 
+    def get_director_client(self, path: str = None):
+        if path is None:
+            fs = self.container_name
+        else:
+            fs = path
+
+        return self.file_system_client.get_directory_client(fs)
+
     def get_directory_properties(self, directory_name: str, include_paths: bool = False
                                  ) -> Tuple[Dict, Union[str, None]]:
         """
-
+        :param str directory_name: Name of directory/folder
         :param bool include_paths: Return list of files/directories at specified directory
         """
         directory = self.file_system_client.get_directory_client(directory=directory_name)
@@ -56,7 +64,8 @@ class AzureDataLake:
             _paths = None
         return _properties, _paths
 
-    def create_file(self, file_name: str, file_ext: str, content) -> None:
-        _file = self.file_system_client.create_file(f"{file_name}.{file_ext}")
+    def create_file(self, filename: str, filepath: str, content) -> None:
+        dc = self.get_director_client(path=filepath)
+        _file = dc.create_file(filename)
         _file.append_data(content, 0, len(content))
         _file.flush_data(len(content))
